@@ -17,7 +17,6 @@
             position: relative;
         }
 
-        /* Floating Hearts Animation */
         .heart {
             position: absolute;
             color: #ff4d6d;
@@ -34,37 +33,40 @@
 
         #card {
             background: white;
-            padding: 40px;
+            padding: 50px;
             border-radius: 30px;
             box-shadow: 0 15px 35px rgba(214, 51, 132, 0.2);
             text-align: center;
             border: 4px solid #ffb6c1;
             z-index: 10;
-            max-width: 400px;
+            width: 450px;
         }
 
         h1 {
             color: #d63384;
             font-size: 2.2rem;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         .btns {
             display: flex;
             justify-content: center;
-            gap: 25px;
-            height: 60px;
+            /* Increased gap significantly to keep them far away */
+            gap: 100px; 
+            height: 80px;
             align-items: center;
+            position: relative;
         }
 
         button {
-            padding: 12px 30px;
-            font-size: 1.1rem;
+            padding: 15px 35px;
+            font-size: 1.2rem;
             border-radius: 50px;
             border: none;
             cursor: pointer;
             font-weight: bold;
             transition: transform 0.2s;
+            min-width: 100px;
         }
 
         #yesBtn {
@@ -73,17 +75,23 @@
             box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
         }
 
+        #yesBtn:hover {
+            transform: scale(1.1);
+        }
+
         #noBtn {
             background-color: #fb6f92;
             color: white;
-            position: absolute;
-            transition: all 0.2s ease;
+            /* Initially placed via relative positioning in the flexbox, 
+               JS will change this to absolute once hovered */
+            position: relative; 
+            z-index: 11;
         }
 
         .hidden { display: none; }
 
         img {
-            width: 200px;
+            width: 250px;
             border-radius: 15px;
             margin-bottom: 20px;
         }
@@ -126,8 +134,12 @@
         const success = document.getElementById('success-state');
 
         noBtn.addEventListener('mouseover', () => {
+            // Change to absolute so it can fly anywhere on the screen
+            noBtn.style.position = 'absolute';
+            
             const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
             const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+            
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
         });
@@ -135,7 +147,6 @@
         yesBtn.addEventListener('click', () => {
             question.classList.add('hidden');
             success.classList.remove('hidden');
-            // Stop moving the "No" button if it was moved
             noBtn.style.display = 'none';
         });
     </script>
